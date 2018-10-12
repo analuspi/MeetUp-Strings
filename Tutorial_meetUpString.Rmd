@@ -1,0 +1,174 @@
+---
+title: "Análise de texto no R"
+author: "Ana Lu"
+date: "11 de outubro de 2018"
+output: html_document
+---
+
+## Análise de texto no R - pacote _stringr_
+
+**Defina 3 linhas de strings (não esqueça das aspas para informar que estamos trabalhando com texto)
+Coloque-as em objetos `linha1`, `linha2` e `linha3`**
+
+```{r}
+linha1 <- "Ada Lovelace foi a primeira programadora da história"
+linha2 <- "Grace Hoper inventou o primeiro compilador para uma linguagem de programação"
+linha3 <- "Dorothy Vaughan chefiou um grupo composto apenas por matemáticas afro-americanas na NASA"
+```
+
+**Agora coloque todas as linhas em um vetor `divasprogramadoras`**
+```{r}
+divasprogramadoras <- c(linha1, linha2, linha3)
+print(divasprogramadoras)
+```
+
+E se vc quiser ver apenas o conteúdo bruto do vetor de texto? Use `writeLines`
+```{r}
+writeLines(divasprogramadoras)
+```
+
+**Compare os resultados com a função `paste` do R base**
+
+```{r}
+paste(linha1, linha2, linha3)
+```
+E se quisermos adicionar um separador?
+```{r}
+paste(linha1, linha2, linha3, sep = ';')
+```
+```{r}
+paste(linha1, linha2, linha3, sep = "|")
+```
+Consegue ver a diferença?
+**Vamos às funções do `stringr`agora!**
+
+```{r}
+library(stringr)
+```
+#### Começaremos pela função `str_sub()`, que extrai apenas parte de um texto:
+```{r}
+cnae.texto <- c("10 Fabricação de produtos alimentícios", "11 Fabricação de bebidas",
+"12 Fabricação de produtos do fumo", "13 Fabricação de produtos têxteis",
+"14 Confecção de artigos do vestuário e acessórios",
+"15 Preparação de couros e fabricação de artefatos de couro, artigos para viagem e calçados",
+"16 Fabricação de produtos de madeira",
+"17 Fabricação de celulose, papel e produtos de papel")
+
+cnae <- str_sub(cnae.texto, 0, 2)
+
+texto <- str_sub(cnae.texto, 4)
+```
+**Vamos imprimir ambos para ver como ficou**
+
+```{r}
+cnae
+```
+
+```{r}
+texto
+```
+#### Temos também a função `str_replace()` e `str_replace_all()`, que substituem determinados caracteres por outros:
+
+```{r}
+telefones <- c("9931-9512", "8591-5892", "8562-1923")
+
+str_replace(telefones, "-", "")
+```
+```{r}
+cnpj <- c("19.702.231/9999-98", "19.498.482/9999-05", "19.499.583/9999-50", "19.500.999/9999-46", "19.501.139/9999-90")
+
+str_replace_all(cnpj, "\\.|/|-", "")
+```
+#### Para modificar para caixa alta e baixa usamos `str_to_upper` e `str_to_lower`
+
+```{r}
+Rladies <- "Somos uma organização que promove a diversidade de gênero na comunidade da linguagem R."
+
+str_to_lower(Rladies)
+str_to_upper(Rladies)
+```
+
+#### Caso precisemos saber o compriento de uma string, podemos usar `str_lenght`
+
+```{r}
+A <- c("a", "Somos a R-ladies", NA)
+str_length(A)
+```
+
+**Repare que ele contabiliza os espaços também e mantém o NA sem contar**
+
+#### Removendo e adicionando espaços com `str_trim` e `str_pad`
+
+**Alguns exemplos de como adicionar espaços com `str_pad`**
+
+```{r}
+# default usage
+str_pad("hola", width = 7)
+```
+
+```{r}
+# pad both sides
+str_pad("adios", width = 7, side = "both")
+## [1] " adios "
+```
+```{r}
+# left padding with #
+
+str_pad("hashtag", width = 8, pad = "#")
+```
+
+```{r}
+# pad both sides with -
+
+str_pad("hashtag", width = 9, side = "both", pad = "-")
+
+```
+
+**Removendo espaços antes e depois de cada string com `str_trim`**
+
+```{r}
+# texto com espaços 
+bad_text = c("Esse", "  exemplo  ", "tem vários  ", "  espaços  ")
+bad_text
+```
+```{r}
+# remove whitespaces on the left side
+good_left_text <- str_trim(bad_text, side = "left")
+good_left_text
+```
+```{r}
+# remove whitespaces on the right side
+good_right_text <- str_trim(bad_text, side = "right")
+good_right_text
+```
+```{r}
+good_text <- str_trim(bad_text, side = "both")
+good_text
+```
+```{r}
+str_c(good_text, collapse = " ")
+
+```
+
+###Exercício resumão
+
+**Utilizando o data frame abaixo**
+
+```{r}
+cadastros <- data.frame(email = c('joaodasilva@gmail.com', 'rafael@hotmail.com', 'maria@uol.com.br', 'juliana@outlook.com'),telefone = c('(61)99831-9482', '11 989762913', '16-99661-1234','15-40192.5812'))
+
+cadastros
+```
+
+**Com as funções `str_trim` `str_sub`e `str_replace_all` , obtenha o resultado a seguir**
+
+```{r}
+#login         dominio   telefone      DDD
+#joaodasilva   gmail     99831-9482    61
+#rafael        hotmail   98976-2913    11
+#maria         uol       99661-1234    16
+#juliana       outlook   40192-5812    15
+
+```
+
+
