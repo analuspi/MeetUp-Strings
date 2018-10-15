@@ -159,9 +159,11 @@ str_detect(spec2, "s\\\\A") #queremos achar uma barra entre s e A
 ---
 # 4 barras para localizar 1??
 
-.center[ - Estamos progurando por uma barra invertida (#4)
-  - Usamos uma barra invertida para indicar que é uma barra e não um caracter special (#3)
-  - Usamos duas barras para indicar a regex (#2 e #1)]
+.center[
+- Estamos progurando por uma barra invertida (#4)
+- Usamos uma barra invertida para indicar que é uma barra e não um caracter special (#3)
+- Usamos duas barras para indicar a regex (#2 e #1)
+]
 ---
 
 # Marcadores (âncoras)
