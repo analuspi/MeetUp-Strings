@@ -133,8 +133,9 @@ str_detect(s3, "a")
 # Nem tudo é o que parece...
 
  <img src="img/nutella-no-pote-de-feijão.jpg" alt="feijão no pote de nutella">
+
 ---
-#Nem tudo é o que parece...
+# Nem tudo é o que parece...
 
 Sempre que um \ aparecer em uma expressão regular, você deve escrevê-lo como \\ na string que representa a expressão regular]
 
